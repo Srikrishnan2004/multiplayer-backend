@@ -16,17 +16,29 @@ const httpServer = createServer(app);
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 const PORT = process.env.PORT || 3001;
 
-console.log("frontend url",FRONTEND_URL);
-console.log("port",PORT);
+console.log("frontend url", FRONTEND_URL);
+console.log("port", PORT);
 
 // Configure CORS for regular HTTP requests
 app.use(
   cors({
     origin: FRONTEND_URL,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
 );
+
+// Optionally reinforce CORS headers manually
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // Configure Socket.IO with CORS
 const io = new Server(httpServer, {
