@@ -12,12 +12,12 @@ const ROOM_CODE_LENGTH = 6;
 const app = express();
 const httpServer = createServer(app);
 
-console.log("frontend url:",process.env.FRONTEND_URL);
-console.log("port:",process.env.PORT);
-
 // Environment variables with defaults
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 const PORT = process.env.PORT || 3001;
+
+console.log("frontend url",FRONTEND_URL);
+console.log("port",PORT);
 
 // Configure CORS for regular HTTP requests
 app.use(
