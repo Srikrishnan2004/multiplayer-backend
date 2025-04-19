@@ -3,7 +3,10 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import path from 'path';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import { GameRoom, generateRoomCode } from './room.js';
+
+dotenv.config();
 
 const ROOM_CODE_LENGTH = 6;
 const app = express();
