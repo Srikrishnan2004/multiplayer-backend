@@ -12,13 +12,26 @@ const ROOM_CODE_LENGTH = 6;
 const app = express();
 const httpServer = createServer(app);
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://multiplayer-r3f.vercel.app'
+];
+
 // Environment variables with defaults
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 const PORT = process.env.PORT || 3001;
 
 // Configure CORS for regular HTTP requests
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin:function(origin,callback) {
+    if(!origin) return callback(null,true);
+
+    if(allowedOrigins.includes(origin)){
+      return callback(null,true);
+    }
+    else{
+      return callback(new Error('Not allowed by CORS.'))
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 }));
