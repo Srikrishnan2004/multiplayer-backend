@@ -39,7 +39,16 @@ app.use(cors({
 // Configure Socket.IO with CORS
 const io = new Server(httpServer, {
   cors: {
-    origin: FRONTEND_URL,
+    origin:function(origin,callback) {
+      if(!origin) return callback(null,true);
+  
+      if(allowedOrigins.includes(origin)){
+        return callback(null,true);
+      }
+      else{
+        return callback(new Error('Not allowed by CORS.'))
+      }
+    },    
     methods: ['GET', 'POST'],
     credentials: true
   },
