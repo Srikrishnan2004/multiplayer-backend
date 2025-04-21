@@ -14,7 +14,8 @@ const httpServer = createServer(app);
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://multiplayer-r3f.vercel.app'
+  'https://multiplayer-r3f.vercel.app',
+  'https://multiplayer.strategyfox.in'
 ];
 
 // Environment variables with defaults
